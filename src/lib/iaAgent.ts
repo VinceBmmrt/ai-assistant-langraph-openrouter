@@ -6,7 +6,6 @@ import { ChatOpenAI } from "@langchain/openai";
 import { NextResponse } from "next/server";
 import { getMessagesForThread, saveMessagesForThread } from "./memoryStore";
 import { AddCalendarEventTool } from "./tools/googleCalendarTool";
-import { CheckAvailabilityTool } from "./tools/viewGoogleCalendarTool";
 
 function getFormattedDateTime(offsetDays = 0, hour = 22) {
   const today = new Date();
@@ -21,7 +20,6 @@ export async function chatWithAgent(
   accessToken: string
 ) {
   const addCalendarEventTool = new AddCalendarEventTool(accessToken);
-  const checkAvailabilityTool = new CheckAvailabilityTool(accessToken);
 
   const agentTools = [addCalendarEventTool];
 

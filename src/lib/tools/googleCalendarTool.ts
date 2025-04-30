@@ -92,7 +92,7 @@ export class AddCalendarEventTool extends Tool {
       } else {
         return "Le créneau horaire est disponible.";
       }
-    } catch (error: unknown) {
+    } catch (error: any) {
       console.error("Erreur dans _call:", error);
       throw new Error(
         error.message || "Erreur lors de la vérification de la disponibilité."
