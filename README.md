@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 AI Calendar Assistant
 
-## Getting Started
+Ce projet est un assistant IA personnel qui interagit avec les utilisateurs via une interface simple, tout en étant capable d'accéder au Google Calendar de l'utilisateur pour :
 
-First, run the development server:
+- Ajouter des événements intelligemment selon la disponibilité
+- Vérifier les créneaux libres
+- Garder en mémoire les échanges grâce à un historique persistant
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+L'IA repose sur [Langraph](https://langraph.com) avec un agent utilisant [OpenRouter](https://openrouter.ai) (GPT-4, Mixtral…), et l'authentification passe par [NextAuth.js](https://next-auth.js.org/) avec OAuth Google.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Fonctionnalités
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 🔐 Authentification Google OAuth avec NextAuth
+- 📅 Ajout intelligent d'événements via l'API Google Calendar
+- ✅ Vérification de disponibilité dans le calendrier
+- 🧠 Agent IA basé sur Langraph + OpenRouter (GPT-4 / Mixtral)
+- 💾 Stockage JSON persistant des conversations utilisateur
+- ⚡ Interface Next.js rapide et moderne
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ⚙️ Étapes pour lancer le projet en local
 
-## Learn More
+1. **Cloner le dépôt**
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   git clone https://github.com/ton-pseudo/ai-calendar-assistant.git
+   cd ai-calendar-assistant
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Installer les dépendances**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   pnpm install
+   ```
+   
+   Assure-toi d'avoir `pnpm` installé (`npm install -g pnpm` si besoin).
 
-## Deploy on Vercel
+3. **Configurer les variables d'environnement**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ fichier `.env.` à la racine du projet :
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```
+
+GOOGLE_CLIENT_ID=clientID_google
+GOOGLE_CLIENT_SECRET=client_secret_google
+GOOGLE_REDIRECT_URI=http://localhost:3000/api/auth/callback/google
+OPENROUTER_API_KEY=openrouter_key
+NEXTAUTH_SECRET=secret_next_auth
+   ```
+
+4. **Lancer le serveur de développement**
+
+   ```bash
+   pnpm dev ou npm run dev
+   ```
+   
+   Puis ouvre http://localhost:3000 dans ton navigateur.
+
+   5. **Se connecter via google pour accorder les permissions d'accéder à google calendar**
+
+   - Sélectionner son compte google
+   - Qaand l'écran Google n'a pas validé cette application cliquer sur "paramètres avancés" puis  "Accéder à IA_Assistant "
+   -Accepter les règles de confidentialité pour donner les droits d'inscrire dans le calendrier
+
+
+      5. **Se connecter via google pour accorder les permissions d'accéder à google calendar**
+
+      ✅ Exemples de prompt
+
+      "Ajoute un rendez-vous avec Tennis avec Paul demain à 14h"
+
+      L'évènement s'ajoute dans le google calendar , redéclencher le même prompt et l'agent détecte qu'il y a déjà un événement prévu à ce créneau horaire. 
