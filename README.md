@@ -21,10 +21,6 @@ L'IA repose sur [Langraph](https://langraph.com) avec un agent utilisant [OpenRo
 
 1. **Cloner le dépôt**
 
-   ```bash
-   git clone https://github.com/ton-pseudo/ai-calendar-assistant.git
-   cd ai-calendar-assistant
-   ```
 
 2. **Installer les dépendances**
 
