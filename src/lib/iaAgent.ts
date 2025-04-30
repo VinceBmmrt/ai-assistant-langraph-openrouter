@@ -4,7 +4,10 @@ import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import { ChatOpenAI } from "@langchain/openai";
 
 import { NextResponse } from "next/server";
-import { getMessagesForThread, saveMessagesForThread } from "./memoryStore";
+import {
+  getMessagesForThread,
+  saveMessagesForThread,
+} from "./memory/memoryStore";
 import { AddCalendarEventTool } from "./tools/googleCalendarTool";
 
 function getFormattedDateTime(offsetDays = 0, hour = 22) {
