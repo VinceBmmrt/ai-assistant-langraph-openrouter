@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const Page = () => {
   const { data: session, status } = useSession();
+  const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<string | null>(null);
   const [input, setInput] = useState<string>("");
   const [messages, setMessages] = useState<{ role: string; content: string }[]>(
@@ -12,6 +13,7 @@ const Page = () => {
   );
 
   const getResponse = async (question: string) => {
+    setLoading(true); // Démarre le loader
     try {
       const updatedMessages = [
         ...messages,
@@ -21,9 +23,7 @@ const Page = () => {
 
       const res = await fetch("/api/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: updatedMessages }),
       });
 
@@ -39,6 +39,8 @@ const Page = () => {
     } catch (error) {
       console.error("Error:", error);
       setResponse("Error retrieving AI response.");
+    } finally {
+      setLoading(false); // Arrête le loader
     }
   };
 
@@ -107,6 +109,12 @@ const Page = () => {
           Send
         </button>
       </form>
+
+      {loading && (
+        <div className="flex justify-center items-center mt-4">
+          <div className="animate-spin border-t-4 border-blue-600 border-solid rounded-full w-12 h-12"></div>
+        </div>
+      )}
 
       <div className="bg-gray-100 p-4 rounded mt-4">
         <h2 className="text-black font-semibold mb-2">AI Response:</h2>
